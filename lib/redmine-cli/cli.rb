@@ -88,6 +88,7 @@ module Redmine
 
               val
             }
+            #STDERR.puts "Debug: Issue #{issue.id} data:\n#{issue.to_yaml()}".brown.brown.brown
           }
 
           if issues.any?
@@ -182,6 +183,7 @@ module Redmine
       method_option :assigned_to, :aliases => "-a",  :desc => "id or user name of person the ticket is assigned to"
       method_option :status,      :aliases => "-s",  :desc => "id or name of status for ticket"
       method_option :project,     :aliases => "-p", :desc => "project for the ticket"
+      method_option :tracker,     :aliases => "-T", :desc => "tracker for the ticket"
       desc "new SUBJECT [DESCRIPTION]", "Create a new ticket"
       def new(subject, description="")
         params =
@@ -533,7 +535,7 @@ module Redmine
             "status" => Field.new("Status", "status", method(:status_name)),
             "start_date" => Field.new("Start", "start_date"),
             "estimated_hours" => Field.new("Estd", "estimated_hours"),
-            "tracker" => Field.new("Type", "tracker", method(:map_user)),
+            "tracker" => Field.new("Type", "tracker", method(:map_tracker)),
             "priority" => Field.new("Priority", "priority", method(:map_priority)),
             "description" => Field.new("Description", "description"),
             "assigned_to" => Field.new("Assigned To", "assigned_to", method(:map_user)),
